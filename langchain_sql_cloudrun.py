@@ -108,7 +108,8 @@ app = Flask(__name__)
 def main():
 #   with open('/home/samdaniel/sam.txt', 'r') as file:
 #     sam = file.read()
-  os.environ["OPENAI_API_KEY"] = os.getenv("MY_SECRET_ENV")
+  secret = "MY_SECRET"
+  os.environ["OPENAI_API_KEY"] = os.environ[secret]
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   project_id = request.args.get("project_id")
   dataset_id = request.args.get("dataset_id")
