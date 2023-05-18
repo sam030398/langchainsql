@@ -106,7 +106,7 @@ app = Flask(__name__)
 
 @app.route("/",methods=["GET"])
 def main():
-  os.environ["OPENAI_API_KEY"] = "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"
+  os.environ["OPENAI_API_KEY"] = os.getenv("MY_SECRET_ENV")
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   project_id = request.args.get("project_id")
   dataset_id = request.args.get("dataset_id")
