@@ -106,12 +106,9 @@ app = Flask(__name__)
 
 @app.route("/",methods=["GET"])
 def main():
-  print(os.environ)
-  try:
-    os.environ["OPENAI_API_KEY"] = os.getenv("MY_SECRET_ENV")
-  except KeyError:
-    print("MY_SECRET_ENV is not set in the environment variables!")
- # os.environ["OPENAI_API_KEY"] = os.getenv("MY_SECRET_ENV")
+  with open('/home/samdaniel/sam.txt', 'r') as file:
+    sam = file.read()
+  os.environ["OPENAI_API_KEY"] = sam
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   project_id = request.args.get("project_id")
   dataset_id = request.args.get("dataset_id")
