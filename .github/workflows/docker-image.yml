@@ -15,4 +15,4 @@ jobs:
     - name: Run script
       env:
         MY_SECRET_ENV: ${{ secrets.MY_SECRET }}
-      run: python script.py
+      run: python langchain_sql_cloudrun.py
