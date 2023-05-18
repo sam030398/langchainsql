@@ -109,7 +109,7 @@ def main():
 #   with open('/home/samdaniel/sam.txt', 'r') as file:
 #     sam = file.read()
   secret = "MY_SECRET"
-  os.environ["OPENAI_API_KEY"] = os.environ[secret]
+  os.environ["OPENAI_API_KEY"] = os.environ.get("new-env")
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   project_id = request.args.get("project_id")
   dataset_id = request.args.get("dataset_id")
