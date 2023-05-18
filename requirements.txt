@@ -2,3 +2,4 @@ google-cloud-bigquery
 pandas
 langchain
 openai
+Flask==1.1.4
