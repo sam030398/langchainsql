@@ -119,7 +119,7 @@ app = Flask(__name__)
 
 @app.route("/",methods=["GET"])
 def main():
-  os.environ["OPENAI_API_KEY"] = access_secret_version('eda-at-project', 'openai', 'latest')
+  os.environ["OPENAI_API_KEY"] = access_secret_version('eda-at-project', 'openai', '1')
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   project_id = request.args.get("project_id")
   dataset_id = request.args.get("dataset_id")
