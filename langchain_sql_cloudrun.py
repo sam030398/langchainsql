@@ -8,7 +8,6 @@ Original file is located at
 """
 
 
-
 import os
 import sqlite3
 from google.cloud import bigquery
