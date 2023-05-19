@@ -23,12 +23,9 @@ from langchain.prompts.prompt import PromptTemplate
 from google.cloud import secretmanager
 
 from flask import Flask , request , jsonify
-def access_secret_version(project_id, secret_id, version_id):
+def access_secret_version(name):
     # Create the Secret Manager client.
     client = secretmanager.SecretManagerServiceClient()
-
-    # Build the resource name of the secret version.
-    name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
 
     # Access the secret version.
     response = client.access_secret_version(request={"name": name})
@@ -119,7 +116,7 @@ app = Flask(__name__)
 
 @app.route("/",methods=["GET"])
 def main():
-  os.environ["OPENAI_API_KEY"] = access_secret_version('eda-at-project', 'openai', '1')
+  my_secret = access_secret_version("projects/354659879420/secrets/openai/versions/1")
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   project_id = request.args.get("project_id")
   dataset_id = request.args.get("dataset_id")
