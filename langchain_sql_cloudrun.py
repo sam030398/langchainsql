@@ -21,7 +21,21 @@ from langchain.agents import AgentExecutor
 from langchain.chat_models import ChatOpenAI
 from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
 from langchain.prompts.prompt import PromptTemplate
+from google.cloud import secretmanager
+
 from flask import Flask , request , jsonify
+def access_secret_version(project_id, secret_id, version_id):
+    # Create the Secret Manager client.
+    client = secretmanager.SecretManagerServiceClient()
+
+    # Build the resource name of the secret version.
+    name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
+
+    # Access the secret version.
+    response = client.access_secret_version(request={"name": name})
+
+    # Return the decoded payload.
+    return response.payload.data.decode('UTF-8')
 
 def bq(project_id, dataset_id, tables_id, credentials):
   client = bigquery.Client(credentials=credentials, project=project_id)
@@ -106,9 +120,7 @@ app = Flask(__name__)
 
 @app.route("/",methods=["GET"])
 def main():
-  with open('sam.txt', 'r') as file:
-    sam = file.read()
-  os.environ["OPENAI_API_KEY"] = sam
+  os.environ["OPENAI_API_KEY"] = = access_secret_version('eda-at-project', '354659879420', 'latest')
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   project_id = request.args.get("project_id")
   dataset_id = request.args.get("dataset_id")
