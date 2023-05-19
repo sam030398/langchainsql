@@ -37,14 +37,11 @@ def bq(project_id, dataset_id, tables_id, credentials):
   client = bigquery.Client(credentials=credentials, project=project_id)
   sqlite_db_name = 'langchain_test.db'
   conn = sqlite3.connect(sqlite_db_name)
-
-  for i in tables_id:
-
-    sql = f'SELECT * FROM `{project_id}.{dataset_id}.{i}`'
-    query_job = client.query(sql)
-    results = query_job.result().to_dataframe()
-    sqlite_table_name = i
-    results.to_sql(sqlite_table_name, conn, if_exists='replace', index=False)
+  sql = f'SELECT * FROM `{project_id}.{dataset_id}.{tables_id}`'
+  query_job = client.query(sql)
+  results = query_job.result().to_dataframe()
+  sqlite_table_name = i
+  results.to_sql(sqlite_table_name, conn, if_exists='replace', index=False)
 
   conn.commit()
   conn.close()
