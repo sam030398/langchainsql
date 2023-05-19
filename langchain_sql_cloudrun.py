@@ -115,28 +115,11 @@ app = Flask(__name__)
 def main():
   os.environ["OPENAI_API_KEY"] = access_secret_version("projects/354659879420/secrets/openai/versions/1")
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
-  #project_id = request.args.get("project_id")
-  project_id = 'pt-client-project'
-  #dataset_id = request.args.get("dataset_id")
-  dataset_id = 'Club21'
-  #tables_id = request.args.get("tables_id")
-  tables_id = 'Orders'
-  #credentials = request.args.get("credentials")
-  credentials = """
-    {
-  "type": "service_account",
-  "project_id": "pt-client-project",
-  "private_key_id": "f16c69af6d4a76475ddeec84220e8de2f4e5b472",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCiMTDQdxCgWNuB\nwV3ZDqWGX6ERd9a7dSgwi0YhrEahnHTYR3TbZrlm/Eqa/0bayqT+JILcP1wdCF0W\nF2+cTG+mymAnM0OjhUxifK5pCl9SGw8Gy8TKg2eZav9P3xE59+8TKaHZYXpb3xII\nwPKlxXzM8KYCwEj7EBpsNJer178HBKtgxs6zO+8xxV/5Ge2RQtJqbSDHxCidcO5Y\nv+dKOx8fQfHAsJVs+7HWW1LraS50hrL2ur5kl26F0zN8x+Hqkzd0hNqN52s5KGXp\nyYZfPfpBAFKO606NPnqRezq8IhUfsv768QMhVci5TsZVdIHaAFjjmHiYtqWO1igf\nH2KIxCYHAgMBAAECggEANWpM4MLtq1lIRXX44eTUd6oj4hxdEFSXvVEI8ksJ4eyk\ngJwb7KvqkHOzYFOFMsY9S2Ob40xMmlUoTv+95rQ3qy8INrDH7GEYlHDqgbaESQaX\nTs4qC+X15w1ZcyUMR9KTHnT+FBjp0rrm9hIRd63QGbCBg/NutZyKjytM7i+5/mWx\nj07t+CvyaOlAEcXCHNTK8G51Xy7grLuatTlWpipLSVmx4Oa7f5sqAeqWW1F3Mr2T\n6ibYEwD+8L7YtjBbaeEuspKcc6paHEuytxnBP2hj5grFAJlvGqay7JIWS4//Xc9s\nKt7spuHmNKxAadzyw+W9c2Ctrs1eYuPWwwEG9qgoKQKBgQDOOo2ZbgLXFQDNKWml\n+9S9V3kZWQ6704zJD7iz5B8goZYwRyO9aOshgOcTlnQI+vn5t0HuY93M9AO3suwF\nz+xWF5cKQ0CvHiMZIU3spOHXDqBrnYDS/fxNa7kX0AfixBxfuniJEY3Fanai8QOK\niBx0hA+F2CZe/FNtb2vMSoZ8bwKBgQDJVewY1SmAhpI8aodnAJCYKH5uMBL9z4oj\nyvbATnQUagF4y8HAJ1TJUxSuR6toKpCKftRw+ZoQYJWUPst0de0nwqsPZPF/LJ5e\n7UIHiMwl95P9IWNen7fFPiHkIn+6Gi2NbWYOeT3za2BP9twlTPAuib8UqzCJv9uy\nNqzeOY3r6QKBgHtVdT2fFz++Jd6Mt8w2kYIzAA9yvWcDG51bM6ER+rOvL3zr7qnm\nR0igKJIEVpzQTBNVz65cN1fNTzPbY2AOe075iLDwi4yvP1pWGp499XqCGtqBNXv5\nvZwnomhlV3H8yuNNR6zhvKGmDBFihjWhNTNRj18CZ+BCkzpNenCQ2WEtAoGAHKD6\nJIHTF/KKwsqHHG9pICnJ6JMvcCXdx78pnSjKushkEzAuCcvN8567txh72CENUpQ8\nUyA69w801dKkDZhjM58rwdGhwWqvzmHAXN/n35I32euwfJkLgaGXIiCBtw3X4l9m\n/rHgzEc9d8FrhmZNVODDagX5rey5Kbs6k5LtilkCgYEAgmT1PqxR2zYnk3hgMkW3\n3HYCE3hCLRraTrWeQTVkLLp8kR0LYm+YifzDTD3JxGJXvwANP8QNpfhnZXa0swpJ\nxkcgoUnWR/g/mlFDB0pSMXRQjXU7o7Y4A9cN43JewGnxD+4QCZulvkGojChWD95O\nUnD1LliHMIvhT6GvzJlg/Dw=\n-----END PRIVATE KEY-----\n",
-  "client_email": "704947980487-compute@developer.gserviceaccount.com",
-  "client_id": "108800423936007394236",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/704947980487-compute%40developer.gserviceaccount.com"
-}      """
-  #query = request.args.get("query")
-  query = "Who are the top 10 spending customers?"
+  project_id = request.args.get("project_id")
+  dataset_id = request.args.get("dataset_id")
+  tables_id = request.args.get("tables_id")
+  credentials = request.args.get("credentials")
+  query = request.args.get("query")
   dburi = bq(project_id, dataset_id, tables_id, credentials)
   db = SQLDatabase.from_uri(dburi)
   prompt = prompt()
