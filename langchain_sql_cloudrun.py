@@ -112,8 +112,9 @@ from flask import Flask
 app = Flask(__name__)
 
 @app.route("/",methods=["GET"])
+
 def main():
-  os.environ["OPENAI_API_KEY"] = access_secret_version("projects/354659879420/secrets/openai/versions/1")
+  os.environ["OPENAI_API_KEY"] = access_secret_version("projects/354659879420/secrets/openai/versions/2")
   llm = ChatOpenAI(model_name="gpt-3.5-turbo")
   data = request.get_json() 
   project_id = data.get("project_id")
@@ -127,8 +128,8 @@ def main():
   sql_query = db_chain(query,prompt)
   bq_query = chatgpt(sql_query)
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8080)
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
 
 
 
